@@ -41,6 +41,9 @@ const QuizScreen = () => {
       <Button
         title="NEXT"
         onPress={() => {
+          // why do I need to use -1
+          // look by default currentQuiz is 0 till it reaches 10
+          // filted.length is 10
           if (currentQuiz < filtered.length - 1) {
             // not cause 0 is
             // setCurrentQuiz(0+1)
