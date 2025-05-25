@@ -1,10 +1,13 @@
-import { View, Text, Button, Alert } from 'react-native';
-import React, { JSX, useState } from 'react';
+import { View, Text, Button, Alert, TouchableOpacity } from 'react-native';
+import React, { JSX, useState, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { quizData } from '../constants/data';
 
+// Want to learn 
+
 const QuizScreen = () => {
   const [currentQuiz, setCurrentQuiz] = useState(0);
+  const [selectOption, setSelectOption] = useState('');
 
   function fisherYatesShuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -14,26 +17,70 @@ const QuizScreen = () => {
     return arr;
   }
   // const arr = [1, 2, 3, 4, 5];
+  // const shuffledArr = fisherYatesShuffle([...quizData]);
+const filtered = useMemo(() => {
   const shuffledArr = fisherYatesShuffle([...quizData]);
+  return shuffledArr.slice(1, 11);
+}, []);
+  // const filtered = shuffledArr.slice(1, 11);
+  // console.log('Filtered :', filtered.length);
 
-  const filtered = shuffledArr.slice(1, 11);
-  console.log('Filtered :', filtered.length);
+  console.log('SelectOption :', selectOption);
+  // console.log('ItemSelected :', );
+// const hello = useMemo((greet:string) => {
+//   console.log("Name :", greet);
+//   // return greet
+// },[])
+// if you call the funtion inside the React Component 
+// then whenever component render(mount, unmount, update) then it will execute  
+// hello("Tausif") // runs only when `data` changes
+
+const hello = useMemo(() => {
+  return (greet: string) => {
+    console.log("Name:", greet);
+    return greet;
+  };
+}, []); // 👈 memoized once, function stays same
+
+hello("Tausif"); // ✅ works
 
   return (
     // will take care about UI later
-    <SafeAreaView className="flex-1">
-      <Text className="font-OpenSans-Bold text-center">Quizzes</Text>
+    <SafeAreaView className="flex-1 px-4 ">
+      <Text className="mb-4 mt-6 text-center font-OpenSans-Bold">Quiz</Text>
+      {/* <View className='  bg-blue-200  items-center justify-center'> */}
 
-      <Text>{filtered[currentQuiz].question}</Text>
-      <Text>{filtered[currentQuiz].answer}</Text>
+      {/* <Text className=' font-OpenSans-Bold mb-4 '>Loremsdfdsfsfdssdfsdfdsfsdfgdfgsf ipsum dolor sit </Text> */}
+      <Text className=" mb-4 font-OpenSans-Bold">{filtered[currentQuiz].question}</Text>
+
+      {/* <Text>{filtered[currentQuiz].answer}</Text> */}
 
       {filtered[currentQuiz].options.map((item: string, index: number): JSX.Element => {
         // why itmes is string type? cause it's string you can check it
-        // console.log('options :', typeof item);
+        console.log('options :', item);
 
         return (
-          <View key={index}>
-            <Text>{item}</Text>
+          <View className="  mb-1" key={index}>
+            <TouchableOpacity
+              // activeOpacity={0.7}
+              onPress={() => {setSelectOption(item); console.log('ItemSelected :', item);
+}
+              }
+              // here we need to manage state ?how do you know cause state of className is chainging
+              // due to certian thing happening and what's that ? by selecting
+              // so create state selectOption
+              // when it's happening when you select option?
+              // so get the option value and compare with the state
+              //  if selectOption == item(selected option) me matches then change the state
+              // added but it's not chaing the state ? why cause value in the selectOption is undefined
+              // so you need to add in selectOption when you select so go
+              // onPress and setSelectOption(item)
+              // but it's still not working why? cause in my 
+              // filterItem I'm  rendering everytime so  new quizzes are getting returned so it mismatches 
+
+              className={` ${selectOption === item ? 'bg-green-500' : 'bg-white'} rounded-2xl bg-green-400 p-4`}>
+              <Text>{item}</Text>
+            </TouchableOpacity>
           </View>
         );
       })}
@@ -42,8 +89,19 @@ const QuizScreen = () => {
         title="NEXT"
         onPress={() => {
           // why do I need to use -1
-          // look by default currentQuiz is 0 till it reaches 10
-          // filted.length is 10
+          // Firstly: filted.length is 10
+          // then: we are intial value of currentQuiz =0
+          // third: we are comparing that is currentQuiz(0) is less than filtered.length(10)
+          // intially: 0 is less than 10 Yeah ? so increase the currentQuiz = 0+1 =1
+          // till 9 is less than 10 ? Yeah so it will incrase again and while fetching
+          // quiz it will give error let me tell you what will be error ? .question is not exist like that
+          // how I know ? cause firstly it will try to fetch question element
+
+          // but the problem is that we only have 9 index element
+          // so wee need on 9th element
+          // if (currentQuiz < filtered.length) {
+          // so by filtred.length - 1 = 10 -1 = 9
+          // so if 9 is less than 9 ? naah so it will work false statement
           if (currentQuiz < filtered.length - 1) {
             // not cause 0 is
             // setCurrentQuiz(0+1)
@@ -53,6 +111,7 @@ const QuizScreen = () => {
           }
         }}
       />
+      {/* </View> */}
     </SafeAreaView>
   );
 };
