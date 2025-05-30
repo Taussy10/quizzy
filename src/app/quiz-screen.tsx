@@ -18,10 +18,19 @@ const QuizScreen = () => {
   }
   // const arr = [1, 2, 3, 4, 5];
   // const shuffledArr = fisherYatesShuffle([...quizData]);
-const filtered = useMemo(() => {
+
+  // What do useMemo Hooks does ? on intial render whatever the result(by calculation) was, it stores in cache
+  //  then if the component renders again and if dependency value changes then it will show cache result not recalculate  
+
+// const filtered = useMemo(() => {
+//   const shuffledArr = fisherYatesShuffle([...quizData]);
+//   return shuffledArr.slice(1, 11);
+// }, []);
+
+const filtered = () => {
   const shuffledArr = fisherYatesShuffle([...quizData]);
   return shuffledArr.slice(1, 11);
-}, []);
+}
   // const filtered = shuffledArr.slice(1, 11);
   // console.log('Filtered :', filtered.length);
 
