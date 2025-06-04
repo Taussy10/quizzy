@@ -1,13 +1,17 @@
-import { View, Text, Button, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, Button, Alert, TouchableOpacity, LogBox } from 'react-native';
 import React, { JSX, useState, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { quizData } from '../constants/data';
+import { router } from 'expo-router';
 
-// Want to learn 
+// Want to learn
 
 const QuizScreen = () => {
-  const [currentQuiz, setCurrentQuiz] = useState(0);
+  const [currentQuiz, setCurrentQuiz] = useState<number>(0);
   const [selectOption, setSelectOption] = useState('');
+  // For storing all userAnswers
+  const [answers, setAnswers] = useState<any[]>([]);
+
 
   function fisherYatesShuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -20,38 +24,29 @@ const QuizScreen = () => {
   // const shuffledArr = fisherYatesShuffle([...quizData]);
 
   // What do useMemo Hooks does ? on intial render whatever the result(by calculation) was, it stores in cache
-  //  then if the component renders again and if dependency value changes then it will show cache result not recalculate  
+  //  then if the component renders again and if dependency value changes then it will show cache result not recalculate
 
-// const filtered = useMemo(() => {
-//   const shuffledArr = fisherYatesShuffle([...quizData]);
-//   return shuffledArr.slice(1, 11);
-// }, []);
+  // If you don't use useMemo hook then will give error of: TypeError: dependencies is not iterable
+  const filtered = useMemo(() => {
+    const shuffledArr = fisherYatesShuffle([...quizData]);
+    // console.log('Helo :', typeof currentQuiz);
 
-const filtered = () => {
-  const shuffledArr = fisherYatesShuffle([...quizData]);
-  return shuffledArr.slice(1, 11);
-}
+    // return shuffledArr.slice(0, 11);
+    return shuffledArr.slice(0, 2);
+  }, []);
+
   // const filtered = shuffledArr.slice(1, 11);
   // console.log('Filtered :', filtered.length);
 
   console.log('SelectOption :', selectOption);
   // console.log('ItemSelected :', );
-// const hello = useMemo((greet:string) => {
-//   console.log("Name :", greet);
-//   // return greet
-// },[])
-// if you call the funtion inside the React Component 
-// then whenever component render(mount, unmount, update) then it will execute  
-// hello("Tausif") // runs only when `data` changes
-
-const hello = useMemo(() => {
-  return (greet: string) => {
-    console.log("Name:", greet);
-    return greet;
-  };
-}, []); // 👈 memoized once, function stays same
-
-hello("Tausif"); // ✅ works
+  // const hello = useMemo((greet:string) => {
+  //   console.log("Name :", greet);
+  //   // return greet
+  // },[])
+  // if you call the funtion inside the React Component
+  // then whenever component render(mount, unmount, update) then it will execute
+  // hello("Tausif") // runs only when `data` changes
 
   return (
     // will take care about UI later
@@ -71,10 +66,11 @@ hello("Tausif"); // ✅ works
         return (
           <View className="  mb-1" key={index}>
             <TouchableOpacity
-              // activeOpacity={0.7}
-              onPress={() => {setSelectOption(item); console.log('ItemSelected :', item);
-}
-              }
+              activeOpacity={0.7}
+              onPress={() => {
+                setSelectOption(item);
+                console.log('ItemSelected :', item);
+              }}
               // here we need to manage state ?how do you know cause state of className is chainging
               // due to certian thing happening and what's that ? by selecting
               // so create state selectOption
@@ -84,11 +80,11 @@ hello("Tausif"); // ✅ works
               // added but it's not chaing the state ? why cause value in the selectOption is undefined
               // so you need to add in selectOption when you select so go
               // onPress and setSelectOption(item)
-              // but it's still not working why? cause in my 
-              // filterItem I'm  rendering everytime so  new quizzes are getting returned so it mismatches 
+              // but it's still not working why? cause in my
+              // filterItem I'm  rendering everytime so  new quizzes are getting returned so it mismatches
 
-              className={` ${selectOption === item ? 'bg-green-500' : 'bg-white'} rounded-2xl bg-green-400 p-4`}>
-              <Text>{item}</Text>
+              className={` ${selectOption === item ? 'bg-gray-900' : 'bg-white'} rounded-2xl bg-green-400 p-4`}>
+              <Text className= {` ${selectOption === item ? 'text-white' : 'text-black'}`}>{item}</Text>
             </TouchableOpacity>
           </View>
         );
@@ -97,6 +93,21 @@ hello("Tausif"); // ✅ works
       <Button
         title="NEXT"
         onPress={() => {
+          const currentQuestion = filtered[currentQuiz]
+          // save the userAnswer 
+const userAnswerObj = {
+  question: currentQuestion.question,
+  correctAnswer: currentQuestion.answer,
+  // we are stoing userAnswer
+  userAnswer: selectOption
+} 
+
+// const update the answer on each 
+const updatedAnswers = [...answers, userAnswerObj]
+setAnswers(updatedAnswers)
+
+console.log(typeof updatedAnswers);
+
           // why do I need to use -1
           // Firstly: filted.length is 10
           // then: we are intial value of currentQuiz =0
@@ -116,6 +127,10 @@ hello("Tausif"); // ✅ works
             // setCurrentQuiz(0+1)
             setCurrentQuiz(currentQuiz + 1);
           } else {
+            router.push({
+              pathname:'/quiz-summary',
+              params: JSON.stringify(updatedAnswers),
+            })
             Alert.alert('Error', 'Ho gaya bhai jaa ke kaam kar kuchh aur ');
           }
         }}
