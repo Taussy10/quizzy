@@ -1,10 +1,21 @@
-import { View, Text, FlatList } from 'react-native';
-import React from 'react';
+import { View, Text, FlatList, Button, BackHandler } from 'react-native';
+import { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 
+
+// In this screen add router.replace('Home') so that you can't back to quiz
 const QuizSummary = () => {
   const data = useLocalSearchParams();
+
+useEffect(() => {
+  const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+    router.replace('/'); // 👈 This sends user to index screen
+    return true; // 👈 Prevent default back behavior
+  });
+
+  return () => backHandler.remove(); // Clean up on unmount
+}, []);
 
   // we are data in string indexes
   // console.log('Data :', data);
@@ -31,9 +42,13 @@ const QuizSummary = () => {
       <Text>
         Total Correct Answers Are: {totalCorrectAnswwer.length}/{parsedData.length}
       </Text>
-
+<Button 
+title='GoBack'
+onPress={() => router.replace('/')}
+/>
       <FlatList
         data={parsedData}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => {
           return (
             <View className="">

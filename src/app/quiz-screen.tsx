@@ -1,4 +1,4 @@
-import { View, Text, Button, Alert, TouchableOpacity, LogBox } from 'react-native';
+import { View, Text, Button, Alert, TouchableOpacity, LogBox, ActivityIndicator } from 'react-native';
 import React, { JSX, useState, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { quizData } from '../constants/data';
@@ -11,7 +11,7 @@ const QuizScreen = () => {
   const [selectOption, setSelectOption] = useState('');
   // For storing all userAnswers
   const [answers, setAnswers] = useState<any[]>([]);
-
+  const [loading, setLoading] = useState(false);
 
   function fisherYatesShuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -32,7 +32,7 @@ const QuizScreen = () => {
     // console.log('Helo :', typeof currentQuiz);
 
     // return shuffledArr.slice(0, 11);
-    return shuffledArr.slice(0, 2);
+    return shuffledArr.slice(0, 3);
   }, []);
 
   // const filtered = shuffledArr.slice(1, 11);
@@ -84,30 +84,31 @@ const QuizScreen = () => {
               // filterItem I'm  rendering everytime so  new quizzes are getting returned so it mismatches
 
               className={` ${selectOption === item ? 'bg-gray-900' : 'bg-white'} rounded-2xl bg-green-400 p-4`}>
-              <Text className= {` ${selectOption === item ? 'text-white' : 'text-black'}`}>{item}</Text>
+              <Text className={` ${selectOption === item ? 'text-white' : 'text-black'}`}>
+                {item}
+              </Text>
             </TouchableOpacity>
           </View>
         );
       })}
 
-      <Button
-        title="NEXT"
+      <TouchableOpacity
         onPress={() => {
-          const currentQuestion = filtered[currentQuiz]
-          // save the userAnswer 
-const userAnswerObj = {
-  question: currentQuestion.question,
-  correctAnswer: currentQuestion.answer,
-  // we are stoing userAnswer
-  userAnswer: selectOption
-} 
+          const currentQuestion = filtered[currentQuiz];
 
-// const update the answer on each 
-const updatedAnswers = [...answers, userAnswerObj]
-setAnswers(updatedAnswers)
+          setLoading(true);
+          // save the userAnswer
+          const userAnswerObj = {
+            question: currentQuestion.question,
+            correctAnswer: currentQuestion.answer,
+            // we are stoing userAnswer
+            userAnswer: selectOption,
+          };
 
-console.log(typeof updatedAnswers);
-
+          // const update the answer on each
+          const updatedAnswers = [...answers, userAnswerObj];
+          setAnswers(updatedAnswers);
+          setLoading(false);
           // why do I need to use -1
           // Firstly: filted.length is 10
           // then: we are intial value of currentQuiz =0
@@ -128,13 +129,21 @@ console.log(typeof updatedAnswers);
             setCurrentQuiz(currentQuiz + 1);
           } else {
             router.push({
-              pathname:'/quiz-summary',
+              pathname: '/quiz-summary',
               params: JSON.stringify(updatedAnswers),
-            })
-            Alert.alert('Error', 'Ho gaya bhai jaa ke kaam kar kuchh aur ');
+            });
           }
         }}
-      />
+        className="  mb-4  flex-row items-center  justify-center rounded-xl  bg-black p-5">
+          {
+            loading?<ActivityIndicator size={'large'} color={"white"} />:<Text className=" font-OpenSans-Bold  w-full text-center   text-white ">NEXT</Text> 
+          }
+      </TouchableOpacity>
+
+      {/* <Button
+        title="NEXT"
+        
+      /> */}
       {/* </View> */}
     </SafeAreaView>
   );
