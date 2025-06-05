@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   ImageBackground,
 } from 'react-native';
-import React, { JSX, useState, useMemo } from 'react';
+import { JSX, useState, useMemo, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { quizData } from '../constants/data';
 import { router } from 'expo-router';
@@ -21,6 +21,43 @@ const QuizScreen = () => {
   // For storing all userAnswers
   const [answers, setAnswers] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  // Counter
+  const [counter, setCounter] = useState(5);
+  // interval
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (counter > 0) {
+        setCounter((prev) => prev - 1);
+      } else {
+        // Save answer (even if not selected)
+        const currentQuestion = filtered[currentQuiz];
+        const userAnswerObj = {
+          question: currentQuestion.question,
+          correctAnswer: currentQuestion.answer,
+          userAnswer: selectOption || 'Not Answered',
+        };
+
+        const updatedAnswers = [...answers, userAnswerObj];
+        setAnswers(updatedAnswers);
+
+        if (currentQuiz < filtered.length - 1) {
+          setCurrentQuiz((prev) => prev + 1);
+          setSelectOption('');
+          setCounter(5); // Reset timer for next quiz
+        } else {
+          clearInterval(timer); // Stop timer
+          router.push({
+            pathname: '/quiz-summary',
+            params: JSON.stringify(updatedAnswers),
+          });
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(timer); // Clean up interval on unmount or re-render
+  }, [counter, currentQuiz]);
+
+  console.log('FALSE :', Boolean(selectOption));
 
   function fisherYatesShuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -47,19 +84,21 @@ const QuizScreen = () => {
   // const filtered = shuffledArr.slice(1, 11);
   // console.log('Filtered :', filtered.length);
 
-  console.log('SelectOption :', selectOption);
+  // console.log('SelectOption :', selectOption);
+  // console.log("QUizzes :",filtered);
 
   return (
     // will take care about UI later
-    // <SafeAreaView className="flex-1 px-4 bg-[radial-gradient(#ccc_1px,transparent_1px)] bg-[length:20px_20px]  ">
-    <SafeAreaView className="flex-1 bg-white ">
+
+    // This is just for above nodges and bottom nodges
+    <SafeAreaView className="flex-1  ">
       <ImageBackground
         source={require('~/assets/dot-dot-bg.png')}
         resizeMode="repeat"
         style={{ flex: 1 }}>
         {/* Container for px03 */}
-        <View className=" px-4">
-          <Text className="mb-4 mt-6 text-center font-OpenSans-Bold">Quiz</Text>
+        <View className=" flex-1 bg-white  px-4">
+          <Text className="mb-4 mt-6 text-center font-OpenSans-Bold">{counter}</Text>
 
           {/* Text center so that if the text in two lines then 2nd line text should be start from center not the intial cause this is game not english paragraph */}
           <Text className=" mb-4 text-center font-OpenSans-Bold">
@@ -70,7 +109,7 @@ const QuizScreen = () => {
 
           {filtered[currentQuiz].options.map((item: string, index: number): JSX.Element => {
             // why itmes is string type? cause it's string you can check it
-            console.log('options :', item);
+            // console.log('options :', item);
 
             return (
               <View className="  mb-1" key={index}>
@@ -92,7 +131,7 @@ const QuizScreen = () => {
                   // but it's still not working why? cause in my
                   // filterItem I'm  rendering everytime so  new quizzes are getting returned so it mismatches
 
-                  className={` ${selectOption === item ? 'bg-gray-900' : 'border-black '} rounded-2xl  border-2 p-4`}>
+                  className={` ${selectOption === item ? ' bg-blue-500' : 'border-black '} rounded-2xl  border-2 p-4`}>
                   <Text className={` ${selectOption === item ? 'text-white' : 'text-black'}`}>
                     {item}
                   </Text>
@@ -101,7 +140,7 @@ const QuizScreen = () => {
             );
           })}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               const currentQuestion = filtered[currentQuiz];
 
@@ -143,13 +182,20 @@ const QuizScreen = () => {
                 });
               }
             }}
-            className="  mb-4  flex-row items-center  justify-center rounded-xl  bg-black p-5">
+            className="  mb-4  h-14 flex-row  items-center justify-center rounded-xl   bg-blue-500 p-2"
+            style={{
+              position: 'absolute',
+              bottom: 300,
+              right: 20,
+            }}>
             {loading ? (
               <ActivityIndicator size={'large'} color={'white'} />
             ) : (
-              <Text className=" w-full  text-center font-OpenSans-Bold   text-white ">NEXT</Text>
+              <Text className=" w-full text-center  font-OpenSans-Bold text-2xl   text-white ">
+                NEXT QUIZ
+              </Text>
             )}
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {/* <Button
         title="NEXT"

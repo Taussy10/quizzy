@@ -8,6 +8,11 @@ const Index = () => {
   //   return <Redirect href={'/quiz-screen'} />
 
   // }
+//      const interval = setInterval(() => {
+//    console.log("Hello");
+   
+//   },1000)
+// clearTimeout(interval)
 
   // we have data of animals
   const number = [2, 2, 2, 2, 2];
