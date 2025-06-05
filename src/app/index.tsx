@@ -5,7 +5,7 @@ import { Redirect, router } from 'expo-router';
 
 const Index = () => {
   // if (true) {
-  //   return <Redirect href={'/quiz-screen'} />
+  //   return <Redirect href={'/quiz-summary'} />
 
   // }
 //      const interval = setInterval(() => {
@@ -22,10 +22,10 @@ const Index = () => {
     const element = number[i];
     // console.log("I :",i);
 
-    console.log('Elm :', element);
+    // console.log('Elm :', element);
 
     const sum = num + i;
-    console.log('Sum :', sum);
+    // console.log('Sum :', sum);
   }
 
   //  number.forEach(element => {

@@ -7,6 +7,7 @@ import {
   LogBox,
   ActivityIndicator,
   ImageBackground,
+  Image,
 } from 'react-native';
 import { JSX, useState, useMemo, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,6 +24,7 @@ const QuizScreen = () => {
   const [loading, setLoading] = useState(false);
   // Counter
   const [counter, setCounter] = useState(5);
+
   // interval
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,7 +59,7 @@ const QuizScreen = () => {
     return () => clearInterval(timer); // Clean up interval on unmount or re-render
   }, [counter, currentQuiz]);
 
-  console.log('FALSE :', Boolean(selectOption));
+  // console.log('FALSE :', Boolean(selectOption));
 
   function fisherYatesShuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -91,13 +93,13 @@ const QuizScreen = () => {
     // will take care about UI later
 
     // This is just for above nodges and bottom nodges
-    <SafeAreaView className="flex-1  ">
+    <SafeAreaView className="flex-1 ">
       <ImageBackground
         source={require('~/assets/dot-dot-bg.png')}
         resizeMode="repeat"
         style={{ flex: 1 }}>
         {/* Container for px03 */}
-        <View className=" flex-1 bg-white  px-4">
+        <View className=" flex-1 px-4">
           <Text className="mb-4 mt-6 text-center font-OpenSans-Bold">{counter}</Text>
 
           {/* Text center so that if the text in two lines then 2nd line text should be start from center not the intial cause this is game not english paragraph */}
