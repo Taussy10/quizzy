@@ -48,10 +48,10 @@ const QuizScreen = () => {
           setCounter(5); // Reset timer for next quiz
         } else {
           clearInterval(timer); // Stop timer
-          router.push({
-            pathname: '/quiz-summary',
-            params: JSON.stringify(updatedAnswers),
-          });
+          // router.push({
+          //   pathname: '/quiz-summary',
+          //   params: JSON.stringify(updatedAnswers),
+          // });
         }
       }
     }, 1000);
@@ -77,17 +77,10 @@ const QuizScreen = () => {
   // If you don't use useMemo hook then will give error of: TypeError: dependencies is not iterable
   const filtered = useMemo(() => {
     const shuffledArr = fisherYatesShuffle([...quizData]);
-    // console.log('Helo :', typeof currentQuiz);
 
     // return shuffledArr.slice(0, 11);
     return shuffledArr.slice(0, 3);
   }, []);
-
-  // const filtered = shuffledArr.slice(1, 11);
-  // console.log('Filtered :', filtered.length);
-
-  // console.log('SelectOption :', selectOption);
-  // console.log("QUizzes :",filtered);
 
   return (
     // will take care about UI later
@@ -98,14 +91,23 @@ const QuizScreen = () => {
         source={require('~/assets/dot-dot-bg.png')}
         resizeMode="repeat"
         style={{ flex: 1 }}>
-        {/* Container for px03 */}
-        <View className=" flex-1 px-4">
-          <Text className="mb-4 mt-6 text-center font-OpenSans-Bold">{counter}</Text>
-
+        {/* Container for px-3 */}
+        <View className=" flex-1 px-4 ">
+          <View className=" absolute right-4 top-2 size-8 flex-row items-center justify-center rounded-full bg-red-500 ">
+            <Text className="text-center font-OpenSans-Bold text-xl text-white">{counter}</Text>
+          </View>
           {/* Text center so that if the text in two lines then 2nd line text should be start from center not the intial cause this is game not english paragraph */}
-          <Text className=" mb-4 text-center font-OpenSans-Bold">
-            {filtered[currentQuiz].question}
-          </Text>
+
+          {/* For making center both timer and question */}
+          <View className=" mb-3 items-center">
+            <Text className=" mb-2 mt-16 text-center font-OpenSans-Bold text-[17px]">
+              {filtered[currentQuiz].question}
+            </Text>
+
+            {/* <View className=' size-14 rounded-full justify-center items-center bg-red-500'>
+          <Text className="text-center text-2xl text-white font-OpenSans-Bold">{counter}</Text>
+            </View> */}
+          </View>
 
           {/* <Text>{filtered[currentQuiz].answer}</Text> */}
 
@@ -119,7 +121,7 @@ const QuizScreen = () => {
                   activeOpacity={0.7}
                   onPress={() => {
                     setSelectOption(item);
-                    console.log('ItemSelected :', item);
+                    // console.log('ItemSelected :', item);
                   }}
                   // here we need to manage state ?how do you know cause state of className is chainging
                   // due to certian thing happening and what's that ? by selecting
@@ -133,8 +135,9 @@ const QuizScreen = () => {
                   // but it's still not working why? cause in my
                   // filterItem I'm  rendering everytime so  new quizzes are getting returned so it mismatches
 
-                  className={` ${selectOption === item ? ' bg-blue-500' : 'border-black '} rounded-2xl  border-2 p-4`}>
-                  <Text className={` ${selectOption === item ? 'text-white' : 'text-black'}`}>
+                  className={` ${selectOption === item ? ' bg-blue-500' : 'border-black '} mb-2  rounded-2xl border-2 p-4`}>
+                  <Text
+                    className={` ${selectOption === item ? 'text-white' : 'text-black'}   font-OpenSans-SemiBold  text-base`}>
                     {item}
                   </Text>
                 </TouchableOpacity>

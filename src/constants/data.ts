@@ -1,17 +1,17 @@
 export const quizData = [
   {
     id: 1,
-    question: "What is the capital of Australia?",
+    question: "What is the capital of Australia ?",
     options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
     answer: "Canberra"
   },
   {id: 2,
-    question: "Who is known as the 'Father of the Nation' in India?",
+    question: "Who is known as the 'Father of the Nation' in India ?",
     options: ["Jawaharlal Nehru", "Subhas Chandra Bose", "Mahatma Gandhi", "Bhagat Singh"],
     answer: "Mahatma Gandhi"
   },
   {id: 3,
-    question: "Which planet is known as the Red Planet?",
+    question: "Which planet is known as the Red Planet ?",
     options: ["Venus", "Mars", "Jupiter", "Saturn"],
     answer: "Mars"
   },
@@ -71,7 +71,7 @@ export const quizData = [
     answer: "France"
   },
   {id: 15,
-    question: "What does DNA stand for?",
+    question: "What does DNA stand for ?",
     options: ["Dynamic Nuclear Acid", "Deoxyribonucleic Acid", "Digital Nucleic Acid", "Deformed Nucleus Acid"],
     answer: "Deoxyribonucleic Acid"
   },
