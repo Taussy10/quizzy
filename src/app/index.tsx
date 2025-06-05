@@ -1,13 +1,14 @@
-import { View, Text, Image, Button, ImageBackground } from 'react-native';
+import { View, Text, Image, Button, ImageBackground, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Redirect, router } from 'expo-router';
 
 const Index = () => {
-  // if (true) {
-  //   return <Redirect href={'/quiz-summary'} />
 
-  // }
+  if (true) {
+    return <Redirect href={'/home'} />
+  }
+
 //      const interval = setInterval(() => {
 //    console.log("Hello");
    
@@ -46,7 +47,14 @@ const Index = () => {
         style={{ flex: 1 }}>
         {/* Container for px03 */}
         <View className=" px-4">
-          <Button title="Go to quiz screen" onPress={() => router.push('/quiz-screen')} />
+            <TouchableOpacity
+                  className="ml-auto md:ml-0 text-lg md:text-xl lg:text-2xl text-white bg-[#4884FF] font-medium px-4 md:px-6 lg:px-8 py-1 md:py-1.5 lg:py-2 border-2 border-[#0B2131] hidden md:block hover:bg-[#366fd1] transition-colors duration-200"
+                  // className=' bg-green-400'
+          
+                  >
+                      <Text className=' text-2xl'>Hello</Text>
+                  </TouchableOpacity>
+          <Button title="Go to quiz screen" onPress={() => router.push('/home')} />
           {/* no we will create app using it 
       what kinda app ? an app that will display Animals name
       */}

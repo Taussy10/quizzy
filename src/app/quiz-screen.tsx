@@ -93,6 +93,9 @@ const QuizScreen = () => {
         style={{ flex: 1 }}>
         {/* Container for px-3 */}
         <View className=" flex-1 px-4 ">
+
+
+          
           <View className=" absolute right-4 top-2 size-8 flex-row items-center justify-center rounded-full bg-red-500 ">
             <Text className="text-center font-OpenSans-Bold text-xl text-white">{counter}</Text>
           </View>
