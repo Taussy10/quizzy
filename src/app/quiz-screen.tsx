@@ -1,4 +1,12 @@
-import { View, Text, Button, Alert, TouchableOpacity, LogBox, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  Alert,
+  TouchableOpacity,
+  LogBox,
+  ActivityIndicator,
+} from 'react-native';
 import React, { JSX, useState, useMemo } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { quizData } from '../constants/data';
@@ -39,23 +47,15 @@ const QuizScreen = () => {
   // console.log('Filtered :', filtered.length);
 
   console.log('SelectOption :', selectOption);
-  // console.log('ItemSelected :', );
-  // const hello = useMemo((greet:string) => {
-  //   console.log("Name :", greet);
-  //   // return greet
-  // },[])
-  // if you call the funtion inside the React Component
-  // then whenever component render(mount, unmount, update) then it will execute
-  // hello("Tausif") // runs only when `data` changes
 
   return (
     // will take care about UI later
-    <SafeAreaView className="flex-1 px-4 ">
+    // <SafeAreaView className="flex-1 px-4 bg-[radial-gradient(#ccc_1px,transparent_1px)] bg-[length:20px_20px]  ">
+    <SafeAreaView className="flex-1 px-4 bg-[radial-gradient(#ccc_1px,transparent_1px)] bg-[length:20px_20px]">
       <Text className="mb-4 mt-6 text-center font-OpenSans-Bold">Quiz</Text>
-      {/* <View className='  bg-blue-200  items-center justify-center'> */}
 
-      {/* <Text className=' font-OpenSans-Bold mb-4 '>Loremsdfdsfsfdssdfsdfdsfsdfgdfgsf ipsum dolor sit </Text> */}
-      <Text className=" mb-4 font-OpenSans-Bold">{filtered[currentQuiz].question}</Text>
+      {/* Text center so that if the text in two lines then 2nd line text should be start from center not the intial cause this is game not english paragraph */}
+      <Text className=" mb-4 text-center font-OpenSans-Bold">{filtered[currentQuiz].question}</Text>
 
       {/* <Text>{filtered[currentQuiz].answer}</Text> */}
 
@@ -135,9 +135,11 @@ const QuizScreen = () => {
           }
         }}
         className="  mb-4  flex-row items-center  justify-center rounded-xl  bg-black p-5">
-          {
-            loading?<ActivityIndicator size={'large'} color={"white"} />:<Text className=" font-OpenSans-Bold  w-full text-center   text-white ">NEXT</Text> 
-          }
+        {loading ? (
+          <ActivityIndicator size={'large'} color={'white'} />
+        ) : (
+          <Text className=" w-full  text-center font-OpenSans-Bold   text-white ">NEXT</Text>
+        )}
       </TouchableOpacity>
 
       {/* <Button

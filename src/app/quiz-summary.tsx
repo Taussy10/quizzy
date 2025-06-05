@@ -7,18 +7,18 @@ import { router, useLocalSearchParams } from 'expo-router';
 // In this screen add router.replace('Home') so that you can't back to quiz
 const QuizSummary = () => {
   const data = useLocalSearchParams();
+  // we are data in string indexes
+  // console.log('Data :', data);
 
 useEffect(() => {
   const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
     router.replace('/'); // 👈 This sends user to index screen
-    return true; // 👈 Prevent default back behavior
+    return true; // 👈 STOPS the default back behavior so instead going to previous screen router.replace will occur
   });
 
   return () => backHandler.remove(); // Clean up on unmount
 }, []);
 
-  // we are data in string indexes
-  // console.log('Data :', data);
 
   let reconstructed = '';
   const keys = Object.keys(data).sort((a, b) => Number(a) - Number(b));
@@ -42,10 +42,7 @@ useEffect(() => {
       <Text>
         Total Correct Answers Are: {totalCorrectAnswwer.length}/{parsedData.length}
       </Text>
-<Button 
-title='GoBack'
-onPress={() => router.replace('/')}
-/>
+
       <FlatList
         data={parsedData}
         showsVerticalScrollIndicator={false}
