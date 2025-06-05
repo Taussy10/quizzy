@@ -2,7 +2,6 @@ import { View, Text, Image, Button, ImageBackground } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Redirect, router } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const Index = () => {
   // if (true) {
@@ -42,7 +41,7 @@ const Index = () => {
         style={{ flex: 1 }}>
         {/* Container for px03 */}
         <View className=" px-4">
-          {/* <Button title="Go to quiz screen" onPress={() => router.push('/quiz-screen')} /> */}
+          <Button title="Go to quiz screen" onPress={() => router.push('/quiz-screen')} />
           {/* no we will create app using it 
       what kinda app ? an app that will display Animals name
       */}
