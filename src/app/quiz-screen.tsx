@@ -138,7 +138,7 @@ const QuizScreen = () => {
                   // but it's still not working why? cause in my
                   // filterItem I'm  rendering everytime so  new quizzes are getting returned so it mismatches
 
-                  className={` ${selectOption === item ? ' bg-blue-500' : 'border-black '} mb-2  rounded-2xl border-2 p-4`}>
+                  className={` ${selectOption === item ? ' bg-action' : 'border-black '} mb-2  rounded-2xl border-2 p-4`}>
                   <Text
                     className={` ${selectOption === item ? 'text-white' : 'text-black'}   font-OpenSans-SemiBold  text-base`}>
                     {item}

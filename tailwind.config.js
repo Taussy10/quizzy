@@ -12,6 +12,9 @@ module.exports = {
         'OpenSans-SemiBold': 'OpenSans_600SemiBold',
         'OpenSans-Bold': 'OpenSans_700Bold',
       },
+      colors: {
+        action: '#3b82f6'
+      }
     },
   },
   plugins: [],

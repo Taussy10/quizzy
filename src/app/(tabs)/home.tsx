@@ -16,38 +16,26 @@ const Home = () => {
           {/* Container for screen */}
           <Text>Home screen</Text>
 
-          {/* <TouchableOpacity 
-          className=" w-32 border-2 border-[#0B2131]   bg-[#4884FF] p-3  px-4   py-1  text-lg text-white "
-          >
-            <Text className=" text-center font-OpenSans-SemiBold text-2xl text-white">Hello</Text>
-          </TouchableOpacity> */}
           <FlatList
             data={cards}
             numColumns={2}
             renderItem={({ item, index }) => {
               return (
-                <View 
-                key={index}
-                className=' mr-5 mb-5'
-                >
+                <View key={index} className=" mb-5 mr-12">
                   <TouchableOpacity
-                  onPress={() => router.push(item.moveTo)}
+                    onPress={() => router.push(item.moveTo)}
                     className="  h-60 w-40 rounded-xl border-2 border-[#0B2131]    
                p-3  px-4   py-1  text-lg text-white ">
-              
                     <Image
                       source={item.image}
                       className="absolute h-[206px] w-[136px] rounded-lg "
                       resizeMode="cover"
                     />
-                 
                   </TouchableOpacity>
                 </View>
               );
             }}
           />
-
-        
         </SafeAreaView>
       </ImageBackground>
     </View>
