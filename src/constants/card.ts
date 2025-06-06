@@ -12,7 +12,7 @@ export const cards = [
     {
        id: 3,
        image: require('~/assets/images/choose-card.png'),
-       moveTo: "/quiz-screen", 
+       moveTo: "/choice-screen", 
     },
     {
        id: 4,
