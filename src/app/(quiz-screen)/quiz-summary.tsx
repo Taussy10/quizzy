@@ -45,9 +45,9 @@ const QuizSummary = () => {
 
         <View className=" flex-1 px-4">
           <Text>
-            Total Correct Answers Are: {totalCorrectAnswwer.length}/{parsedData.length}
+            Your Score is : {totalCorrectAnswwer.length}/{parsedData.length}
           </Text>
-
+{/* 
           <FlatList
             data={parsedData}
             showsVerticalScrollIndicator={false}
@@ -67,7 +67,7 @@ const QuizSummary = () => {
                 </View>
               );
             }}
-          />
+          /> */}
         </View>
       </ImageBackground>
     </SafeAreaView>

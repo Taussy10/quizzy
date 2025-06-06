@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { JSX, useState, useMemo, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { quizData } from '../constants/data';
 import { router } from 'expo-router';
+import { quizData } from '~/src/constants/data';
 
 // Want to learn
 
@@ -21,14 +21,15 @@ const QuizScreen = () => {
   const [selectOption, setSelectOption] = useState('');
   // For storing all userAnswers
   const [answers, setAnswers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  
   // Counter
   const [counter, setCounter] = useState(5);
 
   // interval
   useEffect(() => {
     const timer = setInterval(() => {
-      if (counter > 0) {
+      // if counter is greater then 1 then keep counting -1
+      if (counter > 1) {
         setCounter((prev) => prev - 1);
       } else {
         // Save answer (even if not selected)
@@ -48,10 +49,10 @@ const QuizScreen = () => {
           setCounter(5); // Reset timer for next quiz
         } else {
           clearInterval(timer); // Stop timer
-          // router.push({
-          //   pathname: '/quiz-summary',
-          //   params: JSON.stringify(updatedAnswers),
-          // });
+          router.push({
+            pathname: '/quiz-summary',
+            params: JSON.stringify(updatedAnswers),
+          });
         }
       }
     }, 1000);
@@ -93,9 +94,6 @@ const QuizScreen = () => {
         style={{ flex: 1 }}>
         {/* Container for px-3 */}
         <View className=" flex-1 px-4 ">
-
-
-          
           <View className=" absolute right-4 top-2 size-8 flex-row items-center justify-center rounded-full bg-red-500 ">
             <Text className="text-center font-OpenSans-Bold text-xl text-white">{counter}</Text>
           </View>
