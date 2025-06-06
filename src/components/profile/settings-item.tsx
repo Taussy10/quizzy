@@ -1,10 +1,4 @@
-import {
-  Image,
-  ImageSourcePropType,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, ImageSourcePropType, Text, TouchableOpacity, View } from 'react-native';
 import { Icons } from '~/src/constants/icons';
 
 type settingsItemProp = {
@@ -21,7 +15,7 @@ const SettingsItem = ({ onPress, icon, title }: settingsItemProp) => {
       onPress={onPress}
       className=" flex flex-row items-center justify-between py-3">
       <View className=" flex-row items-center gap-2">
-        <Image source={icon} resizeMode="contain" className="  h-7 w-7 " />
+        <Image source={icon} resizeMode="contain" className=" size-7 " />
         <Text className=" font-semibold">{title}</Text>
       </View>
 

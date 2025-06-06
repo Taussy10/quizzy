@@ -41,27 +41,28 @@ const Profile = () => {
                 {/* container for booking */}
                 <SettingsItem
                   icon={Icons.privacyPolicy}
-                  title="My Booking"
+                  title="Privacy Policy"
                   onPress={() => console.log('Hello')}
                 />
                 <SettingsItem
-                  icon={Icons.privacyPolicy}
-                  title="Payments"
+                  icon={Icons.termsService}
+                  title="Terms & Condition"
+                  onPress={() => console.log('Hello')}
+                />
+                <SettingsItem
+                  icon={Icons.contact}
+                  title="Contact Us"
+                  onPress={() => console.log('Hello')}
+                />
+                <SettingsItem
+                  icon={Icons.ratings}
+                  title="Rate Us"
                   onPress={() => console.log('Hello')}
                 />
               </View>
 
               {/* Horizontal Line */}
               <View className=" border-primary-200  mb-3  border-b" />
-
-              {/* container for profile to invite freinds */}
-              <View className=" mb-3">
-                <SettingsItem
-                  icon={Icons.ratings}
-                  title="Profile"
-                  onPress={() => console.log('Hello')}
-                />
-              </View>
             </View>
 
             {/* for logout */}
@@ -72,7 +73,7 @@ const Profile = () => {
               className=" w-32 flex-row  items-center gap-2 rounded-xl border-2 border-[#0B2131] bg-red-600 p-4    "
               style={{
                 position: 'absolute',
-                top: 400,
+                top: 440,
               }}>
               <Image
                 source={Icons.logout}
