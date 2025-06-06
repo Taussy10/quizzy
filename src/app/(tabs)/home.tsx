@@ -19,12 +19,11 @@ const Home = () => {
           <View className=" mb-10 flex-row gap-2">
             <Image
               source={{ uri: 'https://cdn.jsdelivr.net/gh/alohe/avatars/png/vibrent_1.png' }}
-              //  source={require('~/assets/dot-dot-bg.png')}
               className="  size-14 rounded-full"
             />
-
+            {/* Container for texts */}
             <View className=" ">
-              <Text className="  font-OpenSans-SemiBold   text-gray-700">Welcome !</Text>
+              <Text className="   font-semibold   text-gray-700">Welcome !</Text>
               <Text className="text-action font-OpenSans-Bold text-lg ">Tausif</Text>
             </View>
           </View>

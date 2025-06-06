@@ -7,7 +7,7 @@ export const cards = [
     {
        id: 2,
        image: require('~/assets/images/spin-card.png'),
-       moveTo: "/quiz-screen", 
+       moveTo: "/spin-screen", 
     },
     {
        id: 3,
