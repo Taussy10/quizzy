@@ -35,6 +35,7 @@ const Home = () => {
               return (
                 <View key={index} className=" mb-5 mr-12">
                   <TouchableOpacity
+                    activeOpacity={0.7}
                     onPress={() => router.push(item.moveTo)}
                     className="  h-60 w-40 rounded-xl border-2 border-[#0B2131]    
                p-3  px-4   py-1  text-lg text-white ">

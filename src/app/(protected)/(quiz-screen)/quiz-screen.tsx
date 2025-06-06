@@ -50,7 +50,7 @@ const QuizScreen = () => {
         } else {
           clearInterval(timer); // Stop timer
           router.push({
-            pathname: '/quiz-summary',
+            pathname: '/quiz-result',
             params: JSON.stringify(updatedAnswers),
           });
         }

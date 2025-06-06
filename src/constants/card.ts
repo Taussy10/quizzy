@@ -1,8 +1,8 @@
 export const cards = [
     {
        id: 1,
-       image: require('~/assets/images/ad-card.png'),
-       moveTo: "/quiz-screen", 
+       image: require('~/assets/images/watch-ad-card.png'),
+       moveTo: "/watch-ad-screen", 
     },
     {
        id: 2,
@@ -11,7 +11,7 @@ export const cards = [
     },
     {
        id: 3,
-       image: require('~/assets/images/choose-card.png'),
+       image: require('~/assets/images/choice-card.png'),
        moveTo: "/choice-screen", 
     },
     {

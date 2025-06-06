@@ -11,7 +11,7 @@ const QuizSummary = () => {
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      router.replace('/'); // 👈 This sends user to index screen
+      router.replace('/home'); // 👈 This sends user to index screen
       return true; // 👈 STOPS the default back behavior so instead going to previous screen router.replace will occur
     });
 

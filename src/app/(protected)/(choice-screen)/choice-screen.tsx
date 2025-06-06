@@ -18,7 +18,7 @@ const ChoiceScreen = () => {
   const [inputHeight, setInputHeight] = useState(0);
 
   // Cause I don't want to include empty spaces
-  const trimmedInput = input.trim()
+  const trimmedInput = input.trim();
   return (
     // <View className=" mt-16">
 
@@ -62,7 +62,6 @@ const ChoiceScreen = () => {
           {/* If word 100 then count then check number of words if more than more than 99
       then ok else show Alert write 23 characters more 
       */}
-
 
           <TouchableOpacity
             // to write ifElse(statements) in onPress then you have to
