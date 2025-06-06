@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 
 const ChoiceScreen = () => {
   const [input, setInput] = useState('');
+  const [inputHeight, setInputHeight] = useState('');
 
   console.log('Input :', input.length);
 
@@ -21,15 +22,21 @@ const ChoiceScreen = () => {
 
 */}
       <TextInput
-        style={{
-          height: 40,
-          margin: 12,
-          borderWidth: 1,
-          padding: 10,
-        }}
-        onChangeText={(text) => setInput(text)}
-        value={input}
+        className=" mb-6   rounded-2xl    border-2 bg-white  text-black"
+        style={{ height: Math.max(100, inputHeight) }}
+        multiline={true}
+        // if you add multiLine true then you get enter option
+        numberOfLines={3}
+        // placeholder="What do you want to create? Add ingredients etc."
         placeholder="Write your Opinion"
+        textAlignVertical="top"
+        // this for increasing size of input
+        onContentSizeChange={(e) => setInputHeight(e.nativeEvent.contentSize.height)}
+        // when user change the userInput in TextInput it will
+        // store in setInput function then useState
+        onChangeText={(text) => setInput(text)}
+        // why do we use value ? so that can store value of userInput in InputText
+        value={input}
       />
       {/* If word 100 then count then check number of words if more than more than 99
       then ok else show Alert write 23 characters more 
